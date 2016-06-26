@@ -3,8 +3,6 @@ Version: 0.03
 
 Este es mi script para administrar varios servidores con contenedores Docker.
 
-Etapa actual: desarrollo
-
 Entre otras cosas falta mejorar el control de errores de las funciones implementada
 
 
