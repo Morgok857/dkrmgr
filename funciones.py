@@ -2,17 +2,8 @@
 import os
 import subprocess
 
-def showhelp (pathhelp):
-	try:
-		path=pathhelp+'/help.ini'
-		fopen=open(path,'r')
-		for h in fopen:
-			print(h)
-		fopen.close()
-	except Exception as e:
-		print(" No se puede cargar la Ayuda") 
-
 def run_command(command):
+	#print(command)
 	cmd = os.popen(command)
 	return cmd
  
@@ -20,8 +11,10 @@ def dockerlist (sudo,hostt,ssh,hidden=""):
 	oculto=""
 	if hidden == True:
 		oculto=" -a"
-	comando=ssh+' "'+sudo +' docker ps '+oculto+'"'
-	#print(comando)
+	if ssh == "127.0.0.1" or ssh == "localhost":
+		comando=sudo +' docker ps '+oculto
+	else:
+		comando=ssh+' "'+sudo +' docker ps '+oculto+'"'
 	list = run_command(comando)
 	for lista in list:
 		t = lista.split()
@@ -35,7 +28,10 @@ def dockersearch (sudo,host,ssh,string,hidden=""):
 	oculto=""
 	if hidden == True:
 		oculto=" -a"
-	comando=ssh+' "'+sudo+' docker ps '+oculto+'"'
+	if ssh == "127.0.0.1" or ssh == "localhost":
+		comando=sudo+' docker ps '+oculto
+	else:
+		comando=ssh+' "'+sudo+' docker ps '+oculto+'"'
 	list = run_command(comando)
 	for lista in list:
 		t = lista.split()
@@ -46,11 +42,25 @@ def dockersearch (sudo,host,ssh,string,hidden=""):
 			print(sinn[0]+ "\t\t" + host)
 			
 def dockerstat (sudo,host,container,status):
-	if status == "start" or status == "stop":	
-		comando=host+' "'+sudo+' docker '+status+' '+container+'"'
+	
+	if status == "start" or status == "stop":
+		if host == "127.0.0.1" or host == "localhost":
+			comando=sudo+' docker '+status+' '+container
+		else:	
+			comando=host+' "'+sudo+' docker '+status+' '+container+'"'
 		#print(comando)
 		run_command(comando)
 		print()
-		print("Puede demorar un poco en iniciar/detener el contenedor")
-	else:
-		print(status+' no es un comando valido')
+		return True
+
+	if status == "status":
+		if host == "127.0.0.1" or host == "localhost":
+			comadd2=sudo+' docker inspect --format="{{ .State.Running }}"'+' '+container
+		else:
+			comando=sudo+' docker inspect --format="{{ .State.Running }}"'+' '+container
+			comadd2 = host+ " '" + comando  + "'"
+		print('Status: ')
+		os.system(comadd2)
+		return True
+	
+	print(status+' no es un comando valido')

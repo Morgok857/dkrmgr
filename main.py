@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 import sys,os
 import funciones
 from argparse import ArgumentParser
@@ -20,11 +20,11 @@ try:
 except:
 	print("No se puede leer el archivo de configuracion.")
 	sys.exit(1)
+
 if config.get('GENERAL','sudo') == "yes":
 	sudo="sudo"
 else:
 	sudo=""
-
 parser = ArgumentParser(description='Centraliza la administracion de los contenedores')
 
 parser.add_argument('-l','--list',help='Lista todos los contenedores',action='store_true')
@@ -34,6 +34,17 @@ parser.add_argument('-s','--search',help='Busca entre todos los contenedores',na
 parser.add_argument('--run',help='start/stop contenedor',nargs=2)
 
 args = parser.parse_args()
+
+try:
+
+	if config.get('GENERAL','debug') == "yes":
+		print('List: '+str(args.list))
+		print('Host: '+str(args.host))
+		print('Search: '+str(args.search))
+		print('Hidden: '+str(args.hidden))
+		print('Run: '+str(args.run))
+except:
+	pass
 
 oculto=False
 try:
@@ -53,7 +64,6 @@ if args.list == True:
 	else:
 		for h in config.items("HOST"):	
 			print (titulo)
-		#	print(h[0],h[1],oculto) 
 			funciones.dockerlist(sudo,h[0],h[1],oculto)
 
 if not args.search == None:
@@ -64,4 +74,3 @@ if not args.run == None:
 	for host in args.host:
 		funciones.dockerstat(sudo,config.get('HOST',host),args.run[0],args.run[1])
 	
-funciones.showhelp(diripath)
