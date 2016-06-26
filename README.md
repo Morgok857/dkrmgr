@@ -8,10 +8,10 @@ Entre otras cosas falta mejorar el control de errores de las funciones implement
 
 
 #Requiere:
--Python 3.4.2
--En caso de administrar uno o varios servidores además del localhost es necesario conexión ssh con rsa.
--El usuario que se ejecuta el script debe poder tener permisos para ejecutar los comandos de Docker.
--Si el usuario requier sudo para ejecutar los comandos de Docker puede ser activado desde el archivo config.cfg (Activado por defecto)
+- Python 3.4.2
+- En caso de administrar uno o varios servidores además del localhost es necesario conexión ssh con rsa.
+- El usuario que se ejecuta el script debe poder tener permisos para ejecutar los comandos de Docker.
+- Si el usuario requier sudo para ejecutar los comandos de Docker puede ser activado desde el archivo config.cfg (Activado por defecto)
 
 #Comandos
 
