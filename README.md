@@ -7,7 +7,7 @@ Entre otras cosas falta mejorar el control de errores de las funciones implement
 
 
 
-#Requiere:
+##Requiere:
 Python 3.4.2
 
 En caso de administrar uno o varios servidores además del localhost es necesario conexión ssh con rsa.
@@ -16,7 +16,7 @@ El usuario que se ejecuta el script debe tener permisos para ejecutar los comand
 
 Si el usuario requier sudo para ejecutar los comandos de Docker puede ser activado desde el archivo config.cfg (Activado por defecto)
 
-#Comandos
+##Comandos
 
 Listar todos los contenedores:  -l
 Ej: python3 main.py -l
@@ -47,9 +47,9 @@ Ej: python3 main.py --host localhost --run d4cdfe4d54a2 status
 
 
 
-#Changelog
+##Changelog
 
-Version: 0.04
+>Version: 0.04.
 Reorganizacion de codigo.
 Mejora en el control de errores.
-Se agregaron 2 acciones para --run
+>Se agregaron 2 acciones para --run
