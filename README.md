@@ -48,10 +48,9 @@ Ej: python3 main.py --host localhost --run d4cdfe4d54a2 status
 
 
 ##Changelog
-
-Version: 0.04
 ```
-Reorganizacion de codigo.
-Mejora en el control de errores.
-Se agregaron 2 acciones para --run
+Version: 0.04
+-Reorganizacion de codigo.
+-Mejora en el control de errores.
+-Se agregaron 2 acciones para --run
 ```
