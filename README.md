@@ -35,14 +35,14 @@ Ej:  python3 main.py -s micontenedor
 (Por defecto no busca entre los contenedores detenidos. Para agregarlos usar: -a)
 
 Ineractuar con un contenedor: --run "Id del contenedor" accion    (Se debe especificar el host)
-
+```
 Posibles acciones:
 -start	Inicia el contenedor
 -stop   Detiene el contenedor 
 -status Muestra el estado del contenedor
 -ports  Muestra los puertos en uso/expuestos por el contenedor 
 -internalip Muesta la ip interna del contenedor
-
+```
 Ej: python3 main.py --host localhost --run d4cdfe4d54a2 status
 
 
