@@ -1,9 +1,15 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 import os
 import subprocess
+from settings import *
+
+def show_debug(showprint):
+	if debug == "yes":
+		print(showprint)
 
 def run_command(command):
-	#print(command)
+	show_debug(command)
 	cmd = os.popen(command)
 	return cmd
  
@@ -44,23 +50,47 @@ def dockersearch (sudo,host,ssh,string,hidden=""):
 def dockerstat (sudo,host,container,status):
 	
 	if status == "start" or status == "stop":
+		command_default=sudo+' docker '+status+' '+container
 		if host == "127.0.0.1" or host == "localhost":
-			comando=sudo+' docker '+status+' '+container
+			comando=command_default
 		else:	
-			comando=host+' "'+sudo+' docker '+status+' '+container+'"'
+			comando=host+' "'+command_default+'"'
 		#print(comando)
 		run_command(comando)
 		print()
 		return True
 
 	if status == "status":
+		comando=sudo+' docker inspect --format="{{ .State.Running }}"'+' '+container
 		if host == "127.0.0.1" or host == "localhost":
-			comadd2=sudo+' docker inspect --format="{{ .State.Running }}"'+' '+container
+			comadd2=comando
 		else:
-			comando=sudo+' docker inspect --format="{{ .State.Running }}"'+' '+container
 			comadd2 = host+ " '" + comando  + "'"
 		print('Status: ')
 		os.system(comadd2)
 		return True
-	
+		
+	if status == "ports":
+		commando=sudo+' docker inspect --format="{{ .NetworkSettings.Ports }}"'+' '+container
+		if host == "127.0.0.1" or host == "localhost":
+			comadd2=comando
+		else:
+			comadd2 = host+ " '" + commando  + "'"
+		portss=run_command(comadd2)
+		result=portss.__next__()
+		result=result.split("map")
+		result=result[1]
+		print(result)
+		return True
+
+	if status == "internarip":
+		commando=sudo+' docker inspect --format="{{ .NetworkSettings.IPAddress }}"'+' '+container
+		if host == "127.0.0.1" or host == "localhost":
+			comadd2=comando
+		else:
+			comadd2 = host+ " '" + commando  + "'"
+		result=run_command(comadd2)
+		print("Ip: "+result.__next__())
+		return True
+
 	print(status+' no es un comando valido')

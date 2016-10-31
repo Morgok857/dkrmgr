@@ -1,5 +1,5 @@
 # dkrmgr
-Version: 0.03
+Version: 0.04
 
 Este es mi script para administrar varios servidores con contenedores Docker.
 
@@ -18,18 +18,38 @@ Si el usuario requier sudo para ejecutar los comandos de Docker puede ser activa
 
 #Comandos
 
-Listar todos los contenedores:  python3 main.py -l
+Listar todos los contenedores:  -l
+Ej: python3 main.py -l
 
-Para especificar sobre que host se esta trabajando: --host   
+Para especificar el host que debe usar: --host host
 Ej: python3 main.py --host localhost
 
-Listar contenedores de un host: python3 main.py -l --host localhost
+Listar contenedores de un host: -l --host host
+Ej: python3 main.py -l --host localhost
 
-En caso de querer ver los contedores que estan detendidos agregar: -a   
+Mostrar contenedores detenidos: -a   
 Ej:  python3 main.py -l -a
 
 Para buscar un contenedor: -s "nombre del contenedor o Id del contenedor"
 Ej:  python3 main.py -s micontenedor
 (Por defecto no busca entre los contenedores detenidos. Para agregarlos usar: -a)
 
-En caso de necesitar Detener, Iniciar o ver el estado de un contenedor: --run  (requiere --host)                               Ej: python3 main.py --host localhost --run d4cdfe4d54a2 status
+Ineractuar con un contenedor: --run "Id del contenedor" accion    (Se debe especificar el host)
+
+Posibles acciones:
+-start	Inicia el contenedor
+-stop   Detiene el contenedor 
+-status Muestra el estado del contenedor
+-ports  Muestra los puertos en uso/expuestos por el contenedor 
+-internalip Muesta la ip interna del contenedor
+
+Ej: python3 main.py --host localhost --run d4cdfe4d54a2 status
+
+
+
+#Changelog
+#V0.04
+
+-Reorganizacion de codigo.
+-Mejora en el control de errores.
+-Se agregaron 2 acciones para --run
