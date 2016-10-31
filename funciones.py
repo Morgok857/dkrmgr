@@ -83,7 +83,7 @@ def dockerstat (sudo,host,container,status):
 		print(result)
 		return True
 
-	if status == "internarip":
+	if status == "internalip":
 		commando=sudo+' docker inspect --format="{{ .NetworkSettings.IPAddress }}"'+' '+container
 		if host == "127.0.0.1" or host == "localhost":
 			comadd2=comando
