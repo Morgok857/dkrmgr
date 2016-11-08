@@ -93,4 +93,14 @@ def dockerstat (sudo,host,container,status):
 		print("Ip: "+result.__next__())
 		return True
 
+        if status == "env":
+                commando=sudo + ' docker inspect --format="{{ .Config.Env }}"' + ' ' + container
+                if host == "127.0.0.1" or host == "localhost":
+                        comadd2=commando
+                else:
+                        comadd2 = host+ " '" + commando  + "'"
+                result=run_command(comadd2)
+                print(result.__next__())
+                return True
+
 	print(status+' no es un comando valido')
