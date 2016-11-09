@@ -93,7 +93,7 @@ def dockerstat (sudo,host,container,status):
 		print("Ip: "+result.__next__())
 		return True
 
-        if status == "env":
+	if status == "env":
                 commando=sudo + ' docker inspect --format="{{ .Config.Env }}"' + ' ' + container
                 if host == "127.0.0.1" or host == "localhost":
                         comadd2=commando
