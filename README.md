@@ -34,7 +34,7 @@ Para buscar un contenedor: -s "nombre del contenedor o Id del contenedor"
 Ej:  python3 main.py -s micontenedor
 (Por defecto no busca entre los contenedores detenidos. Para agregarlos usar: -a)
 
-Ineractuar con un contenedor: --run "Id del contenedor" accion    (Se debe especificar el host)
+Interactuar con un contenedor: --run "Id del contenedor" accion    (Se debe especificar el host)
 ```
 Posibles acciones:
 -start	Inicia el contenedor
