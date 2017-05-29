@@ -13,6 +13,7 @@ parser.add_argument('--host',help='Lista los contenedores del servidor indicado'
 parser.add_argument('-a','--hidden',help='Muestra contenedores detenidos',action='store_true')
 parser.add_argument('-s','--search',help='Busca entre todos los contenedores',nargs=1)
 parser.add_argument('--run',help='start/stop contenedor',nargs=2)
+parser.add_argument('--status',help='Muestra los recursos de los nodos',action='store_true')
 
 args = parser.parse_args()
 
@@ -56,3 +57,9 @@ if not args.run == None:
 		funciones.dockerstat(sudo,config.get('HOST',host),args.run[0],args.run[1])
 	#except:
 		#print("Debe agregar el host con: --host host")
+		
+#Muestra estado de los nodos
+if args.status == True:
+	print('Nodos:')
+	for h in config.items("HOST"):
+		funciones.nodos_status(sudo,h[0],h[1],oculto)

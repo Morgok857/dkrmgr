@@ -1,5 +1,5 @@
 # dkrmgr
-Version: 0.04
+Version: 0.05
 
 Este es mi script para administrar varios servidores con contenedores Docker.
 
@@ -45,9 +45,16 @@ Posibles acciones:
 ```
 Ej: python3 main.py --host localhost --run d4cdfe4d54a2 status
 
-
+Verificar los recuros disponibles en los hosts se debe usar: --status
+Ej: python3 main.py --status
 
 ##Changelog
+```
+Version: 0.05
+-Se agrego la posibilidad de listar el estado de los recusros de los host controlados por el script
+-Se cambiaron unos detalles de como se muestra la salida por pantalla 
+```
+
 ```
 Version: 0.04
 -Reorganizacion de codigo.

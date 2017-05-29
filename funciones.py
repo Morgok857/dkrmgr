@@ -94,13 +94,28 @@ def dockerstat (sudo,host,container,status):
 		return True
 
 	if status == "env":
-                commando=sudo + ' docker inspect --format="{{ .Config.Env }}"' + ' ' + container
-                if host == "127.0.0.1" or host == "localhost":
-                        comadd2=commando
-                else:
-                        comadd2 = host+ " '" + commando  + "'"
-                result=run_command(comadd2)
-                print(result.__next__())
-                return True
+		commando=sudo + ' docker inspect --format="{{ .Config.Env }}"' + ' ' + container
+		if host == "127.0.0.1" or host == "localhost":
+			comadd2=commando
+		else:
+			comadd2 = host+ " '" + commando  + "'"
+		result=run_command(comadd2)
+		print(result.__next__())
+		return True
 
 	print(status+' no es un comando valido')
+	
+def nodos_status (sudo,host,ssh,hidden=""):
+	cpu='echo $(top -b -n 2 |grep Cpu |tail -n1|awk \'{print "Cpu en uso: " $2}\')'
+	mem= '"free -m | head -n2 |tail -n1"' + ' '+ " |awk '{print \"Total: \" $2 \" mb\" \"  \" \"Libre: \" $4 \" mb\"}'"
+	if host == "127.0.0.1" or host == "localhost":
+		comaddcpu=cpu
+		comaddmem="free -m | head -n2 |tail -n1 |awk '{print \"Total: \" $2 \" mb\" \"  \" \"Libre: \" $4 \" mb\"}'"
+	else:
+		comaddcpu = ssh+" " + '"'+cpu+'"'
+		comaddmem = ssh+' '+mem
+	fullcpu=run_command(comaddcpu)
+	fullmem=run_command(comaddmem)
+	#print(host + " "+str(comaddcpu) + " " + str(comaddmem) )
+	print(host+": \n"+ fullcpu.__next__() + "Memoria: " + fullmem.__next__() )
+
